@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url("images/BG.jpg");
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 800px;
+            padding: 40px;
+            border-radius: 16px;
+            background: rgba(66, 66, 68, 0.5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .quote-text {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .quote-author {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #aaa;
+        }
+
+        button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        #prev {
+            left: 10px;
+        }
+
+        #next {
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+        <button id="prev" onclick="showPrev()">‹</button>
+        <div class="quote-text" id="quoteText">Loading...</div>
+        <div class="quote-author" id="quoteAuthor"></div>
+        <button id="next" onclick="showNext()">›</button>
+    </div>
+
+    <script>
+        const quotes = [
+            {
+                text: "“शिक्षा की जड़ें कड़वी होती हैं लेकिन फल मीठा होता है।”",
+                author: "Pankaj Pancholi"
+            },
+            {
+                text: "“मुस्कुराहट के साथ दिन की शुरुआत करें, यह आपके दिन को खुशहाल बनाएगा।”",
+                author: "Abhay Savant"
+            },
+            {
+                text: "“सपनों को पाने की चाहत, मेहनत को अपना साथी बना लेती है।”",
+                author: "Jishan Patel"
+            },
+            {
+                text: "“जीवन में कभी भी कठिनाइयों से घबराना नहीं चाहिए, क्योंकि कठिनाइयाँ ही तुम्हें मजबूती देती हैं”",
+                author: "Sunny Prasad"
+            },
+            {
+                text: "“संघर्ष ही जीवन का सार है, इसके बिना कोई सफलता नहीं मिलती”",
+                author: "Elon Musk"
+            }
+        ];
+
+        let currentIndex = 0;
+        const quoteText = document.getElementById("quoteText");
+        const quoteAuthor = document.getElementById("quoteAuthor");
+
+        function updateQuote(index) {
+            quoteText.textContent = quotes[index].text;
+            quoteAuthor.textContent = `— ${quotes[index].author}`;
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % quotes.length;
+            updateQuote(currentIndex);
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + quotes.length) % quotes.length;
+            updateQuote(currentIndex);
+        }
+
+        // Auto-slide every 5 seconds
+        setInterval(showNext, 5000);
+
+        updateQuote(currentIndex);
+    </script>
+
+</body>
+
+</html>
